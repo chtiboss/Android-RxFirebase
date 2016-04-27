@@ -130,6 +130,7 @@ public class RxFirebase {
         final ValueEventListener listener = new ValueEventListener() {
           @Override public void onDataChange(DataSnapshot dataSnapshot) {
             subscriber.onNext(dataSnapshot);
+            subscriber.onCompleted();
           }
 
           @Override public void onCancelled(FirebaseError error) {
@@ -137,7 +138,7 @@ public class RxFirebase {
           }
         };
 
-        ref.addValueEventListener(listener);
+        ref.addListenerForSingleValueEvent(listener);
 
         // When the subscription is cancelled, remove the listener
         subscriber.add(Subscriptions.create(new Action0() {
