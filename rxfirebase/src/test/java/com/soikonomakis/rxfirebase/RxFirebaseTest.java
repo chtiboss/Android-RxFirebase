@@ -1,9 +1,9 @@
 package com.soikonomakis.rxfirebase;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import java.util.Collections;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,12 +11,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Collections;
+
 import rx.Observable;
 import rx.observers.TestSubscriber;
 import rx.schedulers.Schedulers;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -25,9 +26,9 @@ import static org.mockito.Mockito.when;
 public class RxFirebaseTest extends ApplicationTestCase {
 
   private RxFirebase spyRxFirebase;
-  @Mock private Firebase mockRef;
+  @Mock private DatabaseReference mockRef;
   @Mock private DataSnapshot mockDataSnapshot;
-  @Mock private AuthData mockAuthData;
+  @Mock private AuthResult mockAuthData;
   @Mock private FirebaseChildEvent mockFirebaseChildEvent;
 
   @Rule public ExpectedException expectedException = ExpectedException.none();
@@ -44,24 +45,24 @@ public class RxFirebaseTest extends ApplicationTestCase {
     spyRxFirebase = null;
   }
 
-  @Test public void testObserveOauthWithToken() throws InterruptedException {
-    when(spyRxFirebase.observeAuthWithOauthToken(mockRef, "test", "google")).thenReturn(
-        Observable.just(mockAuthData));
-
-    TestSubscriber<AuthData> testSubscriber = new TestSubscriber<>();
-    spyRxFirebase.observeAuthWithOauthToken(mockRef, "test", "google")
-        .subscribeOn(Schedulers.immediate())
-        .subscribe(testSubscriber);
-
-    testSubscriber.assertNoErrors();
-    testSubscriber.assertValueCount(1);
-    testSubscriber.assertReceivedOnNext(Collections.singletonList(mockAuthData));
-    testSubscriber.assertCompleted();
-    testSubscriber.unsubscribe();
-
-    verify(spyRxFirebase).observeAuthWithOauthToken(mockRef, "test", "google");
-  }
-
+//  @Test public void testObserveOauthWithToken() throws InterruptedException {
+//    when(spyRxFirebase.observeAuthWithOauthToken(mockRef, "test", "google")).thenReturn(
+//        Observable.just(mockAuthData));
+//
+//    TestSubscriber<AuthData> testSubscriber = new TestSubscriber<>();
+//    spyRxFirebase.observeAuthWithOauthToken(mockRef, "test", "google")
+//        .subscribeOn(Schedulers.immediate())
+//        .subscribe(testSubscriber);
+//
+//    testSubscriber.assertNoErrors();
+//    testSubscriber.assertValueCount(1);
+//    testSubscriber.assertReceivedOnNext(Collections.singletonList(mockAuthData));
+//    testSubscriber.assertCompleted();
+//    testSubscriber.unsubscribe();
+//
+//    verify(spyRxFirebase).observeAuthWithOauthToken(mockRef, "test", "google");
+//  }
+//
   @Test public void testObserveValue() throws InterruptedException {
     when(spyRxFirebase.observeValueEvent(mockRef)).thenReturn(Observable.just(mockDataSnapshot));
 

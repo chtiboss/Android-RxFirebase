@@ -13,12 +13,14 @@
  */
 package com.soikonomakis.rxfirebase;
 
-import com.firebase.client.DataSnapshot;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 
 /**
  *
  * This class represents a firebase child event when we are
- * using the {@link com.firebase.client.ChildEventListener}
+ * using the {@link ChildEventListener}
  */
 public class FirebaseChildEvent {
 
