@@ -68,7 +68,7 @@ publish {
   userOrg = 'spirosoik'
   groupId = 'com.soikonomakis'
   artifactId = 'rxfirebase'
-  publishVersion = '1.0.0'
+  publishVersion = '1.0.1'
   desc = 'An RxJava implementation of Firebase Android client.'
   website = 'https://github.com/spirosoik/Android-RxFirebase'
 }
